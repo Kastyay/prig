@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Приглашение: подарок от психолога | Секретная кнопка спокойствия</title>
+    <!-- Подключаем шрифты и иконки -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(145deg, #f5f0eb 0%, #e8e2dc 100%);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.5;
+            color: #2d2a24;
+            min-height: 100vh;
+            padding: 2rem 1.5rem;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* декоративные мягкие круги на фоне */
+        .blob {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(60px);
+            opacity: 0.25;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .blob-1 {
+            width: 40vw;
+            height: 40vw;
+            background: #b9d8c1;
+            top: -15vh;
+            left: -10vw;
+        }
+
+        .blob-2 {
+            width: 50vw;
+            height: 50vw;
+            background: #ffe0b5;
+            bottom: -20vh;
+            right: -15vw;
+        }
+
+        .blob-3 {
+            width: 35vw;
+            height: 35vw;
+            background: #d9c7e2;
+            top: 40%;
+            left: 60%;
+        }
+
+        /* главный контейнер */
+        .container {
+            max-width: 880px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* карточка приглашения */
+        .invitation-card {
+            background: rgba(255, 255, 245, 0.92);
+            backdrop-filter: blur(2px);
+            border-radius: 56px;
+            box-shadow: 0 25px 45px -12px rgba(0, 0, 0, 0.25), 0 2px 6px rgba(0, 0, 0, 0.02);
+            overflow: hidden;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 240, 0.7);
+        }
+
+        /* декоративная верхняя полоска */
+        .hero-pattern {
+            height: 12px;
+            background: linear-gradient(90deg, #e6b980, #d6a46b, #c49a6c, #e6b980);
+            background-size: 200% 100%;
+            animation: shimmer 4s infinite linear;
+        }
+
+        @keyframes shimmer {
+            0% { background-position: 0% 0; }
+            100% { background-position: 200% 0; }
+        }
+
+        .content {
+            padding: 2.5rem 2rem 2.8rem;
+        }
+
+        /* эмодзи / иконка "подарок" */
+        .gift-icon {
+            font-size: 3.5rem;
+            margin-bottom: 0.75rem;
+            display: inline-block;
+            animation: gentleFloat 3s infinite ease-in-out;
+        }
+
+        @keyframes gentleFloat {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-6px); }
+        }
+
+        h1 {
+            font-size: 2.4rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            background: linear-gradient(135deg, #3a2c1f, #7f5a3a);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .badge {
+            background: #f5e7d9;
+            color: #b1622c;
+            display: inline-block;
+            padding: 0.3rem 1rem;
+            border-radius: 100px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 1.8rem;
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(210, 150, 90, 0.2);
+        }
+
+        .invitation-text {
+            font-size: 1.1rem;
+            font-weight: 500;
+            background: #fefaf5;
+            padding: 1.8rem;
+            border-radius: 32px;
+            margin: 1.5rem 0;
+            border-left: 6px solid #e6b980;
+            color: #2e2a24;
+            box-shadow: 0 6px 14px rgba(0,0,0,0.02);
+        }
+
+        .invitation-text p {
+            margin-bottom: 1rem;
+        }
+
+        .invitation-text p:last-child {
+            margin-bottom: 0;
+        }
+
+        .highlight {
+            background: linear-gradient(120deg, #fff0d6 0%, #fff0d6 40%, transparent 60%);
+            padding: 0 0.2rem;
+            font-weight: 600;
+            color: #a55310;
+        }
+
+        .secret-button-area {
+            background: #f3efe8;
+            border-radius: 48px;
+            padding: 1.6rem 2rem;
+            margin: 2rem 0 1.5rem;
+            text-align: center;
+            transition: all 0.2s;
+            border: 1px dashed #d4b48c;
+        }
+
+        .secret-label {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 600;
+            color: #aa7b4c;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .secret-label i {
+            font-size: 1.1rem;
+        }
+
+        .secret-btn {
+            background: #2c2b26;
+            border: none;
+            padding: 1rem 2rem;
+            font-size: 1.4rem;
+            font-weight: 700;
+            border-radius: 60px;
+            color: #fce8cf;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            transition: all 0.2s ease;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+            font-family: inherit;
+        }
+
+        .secret-btn i {
+            font-size: 1.6rem;
+            transition: transform 0.2s;
+        }
+
+        .secret-btn:hover {
+            background: #1f1e1a;
+            transform: scale(1.02);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.25);
+            color: #fff2e2;
+        }
+
+        .secret-btn:active {
+            transform: scale(0.98);
+        }
+
+        .secret-feedback {
+            margin-top: 1.2rem;
+            font-size: 1rem;
+            font-weight: 500;
+            min-height: 3rem;
+            color: #6d4c2e;
+            background: rgba(255,248,235,0.8);
+            padding: 0.7rem 1rem;
+            border-radius: 40px;
+            display: inline-block;
+            width: auto;
+            backdrop-filter: blur(4px);
+        }
+
+        .info-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: space-between;
+            margin: 1.8rem 0 1rem;
+        }
+
+        .info-item {
+            background: #ffffffc9;
+            backdrop-filter: blur(4px);
+            border-radius: 28px;
+            padding: 0.8rem 1.2rem;
+            flex: 1;
+            min-width: 130px;
+            text-align: center;
+            border: 1px solid #ffe0bd;
+        }
+
+        .info-item i {
+            font-size: 1.8rem;
+            color: #c98656;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .info-item span {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #4f3a28;
+            display: block;
+        }
+
+        .info-item strong {
+            font-size: 1.1rem;
+            color: #2c241c;
+        }
+
+        .rsvp-section {
+            margin-top: 2rem;
+            display: flex;
+            justify-content: center;
+        }
+
+        .rsvp-btn {
+            background: #d9ae7a;
+            border: none;
+            padding: 0.9rem 2.2rem;
+            border-radius: 40px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: white;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            transition: 0.2s;
+            font-family: inherit;
+            box-shadow: 0 6px 14px rgba(0,0,0,0.1);
+        }
+
+        .rsvp-btn i {
+            font-size: 1.2rem;
+        }
+
+        .rsvp-btn:hover {
+            background: #bd8b56;
+            transform: translateY(-3px);
+        }
+
+        .footer-note {
+            margin-top: 2.5rem;
+            font-size: 0.8rem;
+            text-align: center;
+            color: #7e6b58;
+            border-top: 1px solid #eedbc8;
+            padding-top: 1.5rem;
+        }
+
+        /* анимация для "прикольного" эффекта при нажатии секретной кнопки */
+        @keyframes pop {
+            0% { transform: scale(0.9); opacity: 0; }
+            80% { transform: scale(1.1); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .pop-message {
+            animation: pop 0.25s ease-out;
+        }
+
+        /* мобильная адаптация */
+        @media (max-width: 640px) {
+            .content {
+                padding: 1.5rem;
+            }
+            h1 {
+                font-size: 1.8rem;
+            }
+            .invitation-text {
+                font-size: 0.95rem;
+                padding: 1.2rem;
+            }
+            .secret-btn {
+                padding: 0.7rem 1.4rem;
+                font-size: 1.1rem;
+            }
+            .info-grid {
+                flex-direction: column;
+                gap: 0.7rem;
+            }
+            .info-item {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 12px;
+                text-align: left;
+            }
+            .info-item i {
+                margin-bottom: 0;
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="blob blob-1"></div>
+<div class="blob blob-2"></div>
+<div class="blob blob-3"></div>
+
+<div class="container">
+    <div class="invitation-card">
+        <div class="hero-pattern"></div>
+        <div class="content">
+            <div class="gift-icon">🎁🧠</div>
+            <h1>Подарок от психолога<br><span style="font-size: 1.6rem;">45 минут отдыха для мозга</span></h1>
+            <div class="badge">
+                <i class="fas fa-clock"></i> В СРЕДУ · ВМЕСТО ЧАСА ТИШИНЫ
+            </div>
+
+            <div class="invitation-text">
+                <p><strong>Дорогие коллеги!</strong> ✨</p>
+                <p>В среду вместо привычного часа тишины у нас — <span class="highlight">подарок от психолога</span>. 45 минут отдыха для мозга с <strong>гарантией</strong>, что уйдёте с конкретным инструментом, как <strong>не сгорать</strong>.</p>
+                <p>Это добровольно, но я пойду, и вам советую — редко когда о нас так заботятся. 😌</p>
+                <p>🔥 Там что-то про <strong class="highlight">«секретную кнопку спокойствия»</strong>, мне уже интересно! И ещё кое-что <strong>прикольное</strong>.</p>
+                <p><i class="fas fa-brain"></i> <em>Инструмент, который останется с вами — чтобы в любой момент нажать внутренний «стоп-кран».</em></p>
+            </div>
+
+            <!-- Ключевая фишка: СЕКРЕТНАЯ КНОПКА СПОКОЙСТВИЯ (интерактив) -->
+            <div class="secret-button-area">
+                <div class="secret-label">
+                    <i class="fas fa-shield-alt"></i> 
+                    <span>секретная зона спокойствия</span>
+                    <i class="fas fa-magic"></i>
+                </div>
+                <button class="secret-btn" id="calmButton">
+                    <i class="fas fa-power-off"></i> 
+                    Секретная кнопка спокойствия
+                    <i class="fas fa-hand-peace"></i>
+                </button>
+                <div id="calmFeedback" class="secret-feedback">
+                    💡 Нажми — почувствуешь магию...
+                </div>
+            </div>
+
+            <!-- Детали встречи в прикольном стиле -->
+            <div class="info-grid">
+                <div class="info-item">
+                    <i class="far fa-calendar-alt"></i>
+                    <span>ДЕНЬ</span>
+                    <strong>СРЕДА</strong>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-hourglass-half"></i>
+                    <span>ДЛИТЕЛЬНОСТЬ</span>
+                    <strong>45 минут</strong>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-chalkboard-user"></i>
+                    <span>ВЕДУЩАЯ</span>
+                    <strong>Психолог Елена</strong>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-gift"></i>
+                    <span>РЕЗУЛЬТАТ</span>
+                    <strong>Инструмент антивыгорания</strong>
+                </div>
+            </div>
+
+            <!-- кнопка "я пойду" - добровольно, но рекомендуем -->
+            <div class="rsvp-section">
+                <button class="rsvp-btn" id="rsvpButton">
+                    <i class="fas fa-heart"></i> Я пойду / Мне интересно
+                </button>
+            </div>
+            <div class="footer-note">
+                <i class="fas fa-users"></i> Добровольно, но будет здорово собраться вместе.  
+                После встречи каждый получит простую, но мощную практику.  
+                <span style="display: inline-block; margin-top: 6px;">⭐ #КнопкаСпокойствия ⭐</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Прикольные реакции на "Секретную кнопку спокойствия"
+    const calmBtn = document.getElementById('calmButton');
+    const feedbackDiv = document.getElementById('calmFeedback');
+    
+    // массив забавных и расслабляющих фраз + звукоподражания
+    const peacefulMessages = [
+        "🔮 Ба-бах! Вы нажали кнопку спокойствия. Вдох... выдох... Ваш мозг замедляется на 15% 😌",
+        "✨ *тихий щелчок* Активирована защита от burnout. Просто дышите ровно 6 секунд. 🌬️",
+        "🍃 Секретная кнопка сработала! Ваша внутренняя чашка кофе стала тёплым какао. Уровень стресса — минимальный.",
+        "🌀 Кнопка нажата! Представьте, как напряжение утекает в пол. *приятная вибрация*",
+        "🌸 Ого! Вы нашли 'тихий режим'. Теперь вы знаете, где искать спокойствие. (спойлер: внутри)",
+        "🧘 Маленькое чудо: вы только что запустили практику 'Минута покоя'. Сохраните это ощущение.",
+        "🎈 ПФФФ-Ф-Ф... воздух выходит из тревог. Секундная перезагрузка. Вы молодец!",
+        "🌟 Поздравляю! Вы активировали скрытый ресурс. Вот вам улыбка :) Работает безотказно."
+    ];
+    
+    let clickCount = 0;
+    
+    function showCalmEffect() {
+        // случайное сообщение
+        const randomMsg = peacefulMessages[Math.floor(Math.random() * peacefulMessages.length)];
+        // иногда добавляем секретный счетчик для смеха
+        clickCount++;
+        let extra = "";
+        if (clickCount === 3) {
+            extra = " ⚡ (три нажатия! Вы профи спокойствия!)";
+        } else if (clickCount === 7) {
+            extra = " 🏆 7 раз! Вы стали мастером кнопки. Вручаем виртуальную медаль спокойствия 🥇";
+        } else if (clickCount === 10) {
+            extra = " 🌈 10 нажатий! Ваш внутренний zen-мастер пробудился. Сохраните этот код в сердце.";
+        }
+        feedbackDiv.innerHTML = `<i class="fas fa-hand-sparkles"></i> ${randomMsg}${extra}`;
+        feedbackDiv.classList.add('pop-message');
+        setTimeout(() => {
+            feedbackDiv.classList.remove('pop-message');
+        }, 300);
+        
+        // дополнительный прикол: меняем временно иконку кнопки
+        const iconPower = calmBtn.querySelector('.fa-power-off');
+        if (iconPower) {
+            const originalIcon = iconPower;
+            originalIcon.className = 'fas fa-leaf';
+            setTimeout(() => {
+                originalIcon.className = 'fas fa-power-off';
+            }, 800);
+        }
+        
+        // добавим также лёгкую вибрацию если поддерживается (не критично)
+        if (navigator.vibrate) {
+            navigator.vibrate(80);
+        }
+        
+        // Секретный звук? не обязателен, но можно "щёлкнуть" в воображении :)
+        // Имитация прикольного эффекта: фон на мгновение меняет оттенок?
+        const card = document.querySelector('.invitation-card');
+        if (card) {
+            card.style.transition = 'background 0.2s';
+            const originalBg = card.style.backgroundColor;
+            card.style.backgroundColor = '#fffaf2';
+            setTimeout(() => {
+                card.style.backgroundColor = '';
+            }, 200);
+        }
+    }
+    
+    calmBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        showCalmEffect();
+    });
+    
+    // также сделаем, чтобы по клику на секретную область вокруг тоже был сюрприз
+    const secretArea = document.querySelector('.secret-button-area');
+    if (secretArea) {
+        secretArea.addEventListener('click', (e) => {
+            if (e.target === calmBtn || calmBtn.contains(e.target)) return;
+            // если клик мимо кнопки, но в зоне — тоже легкий отклик
+            feedbackDiv.innerHTML = "🤫 Псс... нажми на саму кнопку — там магия! 🔘";
+            feedbackDiv.classList.add('pop-message');
+            setTimeout(() => {
+                if(feedbackDiv.innerHTML.includes("Псс...")) {
+                    // если не перезаписали ранее
+                    if(!feedbackDiv.innerHTML.includes("Нажми")){
+                        // ничего не делаем, оставляем до следующего нажатия на кнопку
+                    } else {
+                        setTimeout(() => {
+                            if(feedbackDiv.innerHTML.includes("Псс...")) feedbackDiv.innerHTML = "💡 Нажми — почувствуешь магию...";
+                        }, 1500);
+                    }
+                }
+                feedbackDiv.classList.remove('pop-message');
+            }, 1000);
+        });
+    }
+    
+    // кнопка "Я пойду" с забавным подтверждением
+    const rsvpBtn = document.getElementById('rsvpButton');
+    let rsvpCount = 0;
+    rsvpBtn.addEventListener('click', () => {
+        rsvpCount++;
+        const messages = [
+            "🎉 Отлично! Ты в компании. Ждём в среду! (и не забудь секретную кнопку 😉)",
+            "✨ Супер! Атмосфера гарантирована. Передадим психологу, что ты будешь.",
+            "🧘‍♀️ Принято! Подготовь удобное место, 45 минут — твой подарок себе.",
+            "🍬 Класс! Твой голос учтён. Будет прикольно, обещаем. Кнопка спокойствия уже заряжается.",
+            "💎 Спасибо! Встречаемся в среду вместо часа тишины. Твой мозг скажет спасибо.",
+            "🌻 Ура! Ты идёшь. Обещаем не просто лекцию, а живой инструмент против выгорания."
+        ];
+        const randomMsgRsvp = messages[Math.floor(Math.random() * messages.length)];
+        // создаем красивый тост-уведомление (не навязчиво)
+        let toast = document.createElement('div');
+        toast.innerText = randomMsgRsvp;
+        toast.style.position = 'fixed';
+        toast.style.bottom = '20px';
+        toast.style.left = '50%';
+        toast.style.transform = 'translateX(-50%)';
+        toast.style.backgroundColor = '#2d2a24';
+        toast.style.color = '#f9e5c1';
+        toast.style.padding = '12px 24px';
+        toast.style.borderRadius = '60px';
+        toast.style.fontWeight = '500';
+        toast.style.fontSize = '0.9rem';
+        toast.style.zIndex = '999';
+        toast.style.boxShadow = '0 8px 20px rgba(0,0,0,0.2)';
+        toast.style.backdropFilter = 'blur(12px)';
+        toast.style.background = 'rgba(30, 25, 20, 0.9)';
+        toast.style.border = '1px solid #e6b980';
+        toast.style.fontFamily = 'inherit';
+        toast.style.whiteSpace = 'nowrap';
+        toast.style.maxWidth = '90%';
+        toast.style.whiteSpace = 'normal';
+        toast.style.textAlign = 'center';
+        document.body.appendChild(toast);
+        
+        // анимация появления
+        toast.style.animation = 'pop 0.2s ease-out';
+        setTimeout(() => {
+            toast.style.opacity = '1';
+        }, 10);
+
+  
