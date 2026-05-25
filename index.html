@@ -358,7 +358,7 @@
                 <div class="info-item">
                     <i class="fas fa-chalkboard-user"></i>
                     <span>ВЕДУЩАЯ</span>
-                    <strong>Психолог Валерия</strong>
+                    <strong>Психолог Елена</strong>
                 </div>
                 <div class="info-item">
                     <i class="fas fa-gift"></i>
@@ -528,4 +528,80 @@
         toast.style.color = '#f9e5c1';
         toast.style.padding = '12px 24px';
         toast.style.borderRadius = '60px';
-   
+        toast.style.fontWeight = '500';
+        toast.style.fontSize = '0.9rem';
+        toast.style.zIndex = '999';
+        toast.style.boxShadow = '0 8px 20px rgba(0,0,0,0.2)';
+        toast.style.backdropFilter = 'blur(12px)';
+        toast.style.background = 'rgba(30, 25, 20, 0.9)';
+        toast.style.border = '1px solid #e6b980';
+        toast.style.fontFamily = 'inherit';
+        toast.style.whiteSpace = 'normal';
+        toast.style.textAlign = 'center';
+        document.body.appendChild(toast);
+        toast.style.animation = 'pop 0.2s ease-out';
+        setTimeout(() => {
+            toast.style.transition = 'opacity 0.4s';
+            toast.style.opacity = '0';
+            setTimeout(() => toast.remove(), 500);
+        }, 2800);
+        
+        const originalText = rsvpBtn.innerHTML;
+        rsvpBtn.innerHTML = '<i class="fas fa-check-circle"></i> Спасибо! До встречи';
+        rsvpBtn.style.background = '#8b6b4b';
+        setTimeout(() => {
+            rsvpBtn.innerHTML = originalText;
+            rsvpBtn.style.background = '#d9ae7a';
+        }, 2000);
+    });
+    
+    // Hover-эффект для кнопки: текстовый намёк
+    calmBtn.addEventListener('mouseenter', () => {
+        if (!feedbackDiv.innerHTML.includes("магию")) {
+            feedbackDiv.innerHTML = "🔘 Хочешь спокойствия? Нажми! Появятся смайлики счастья 🥰";
+        }
+    });
+    calmBtn.addEventListener('mouseleave', () => {
+        setTimeout(() => {
+            if (feedbackDiv.innerHTML.includes("Хочешь спокойствия") && !feedbackDiv.innerHTML.includes("Нажми — почувствуешь")) {
+                feedbackDiv.innerHTML = "💡 Нажми — почувствуешь магию... и увидишь смайлики счастья!";
+            }
+        }, 1000);
+    });
+    
+    // Добавим дату ближайшей среды в футер
+    function getNearestWednesday() {
+        const today = new Date();
+        const dayOfWeek = today.getDay();
+        if(dayOfWeek === 3) return "сегодня (в среду!)";
+        const daysUntilWednesday = (3 - dayOfWeek + 7) % 7;
+        const nextWed = new Date(today);
+        nextWed.setDate(today.getDate() + daysUntilWednesday);
+        return nextWed.toLocaleDateString('ru-RU', { day: 'numeric', month: 'long' });
+    }
+    const footerNote = document.querySelector('.footer-note');
+    if(footerNote && !footerNote.innerHTML.includes('ближайшая')) {
+        const wedDate = getNearestWednesday();
+        const spanHint = document.createElement('div');
+        spanHint.style.marginTop = '8px';
+        spanHint.style.fontSize = '0.75rem';
+        spanHint.style.opacity = '0.8';
+        spanHint.innerHTML = `<i class="far fa-calendar-check"></i> Ближайшая среда: ${wedDate} · В обычное время часа тишины`;
+        footerNote.appendChild(spanHint);
+    }
+    
+    // Пасхалка на паттерне
+    let patternClicks = 0;
+    const heroPattern = document.querySelector('.hero-pattern');
+    if(heroPattern) {
+        heroPattern.addEventListener('click', () => {
+            patternClicks++;
+            if(patternClicks === 5) {
+                alert('🧠 Секретный уровень: Вы нашли пасхалку! Психолог приготовил для вас не только кнопку, но и приём "Квадрат дыхания". Попробуйте вдох 4-4-4-4. Увидимся в среду! ✨');
+                patternClicks = 0;
+            }
+        });
+    }
+</script>
+</body>
+</html>
